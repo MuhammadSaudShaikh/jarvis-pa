@@ -4,9 +4,9 @@ const path = require('path');
 const dbPath = path.join(__dirname, '../jarvis.db');
 const db = new sqlite3.Database(dbPath);
 
-// Create tables if not exist
+
 db.serialize(() => {
-  // Users table (NEW)
+  
   db.run(`
     CREATE TABLE IF NOT EXISTS users (
       id INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -16,7 +16,7 @@ db.serialize(() => {
     )
   `);
 
-  // Messages table (already tha, but foreign key ke saath update)
+  
   db.run(`
     CREATE TABLE IF NOT EXISTS messages (
       id INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -28,9 +28,9 @@ db.serialize(() => {
     )
   `);
   
-  console.log('✅ Database tables ready (users + messages)');
+  console.log('Database tables ready (users + messages)');
 });
 
-console.log('✅ SQLite database connected');
+console.log('SQLite database connected');
 
 module.exports = db;

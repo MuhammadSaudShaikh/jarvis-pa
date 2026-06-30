@@ -1,7 +1,7 @@
 const db = require('../config/db');
 const bcrypt = require('bcryptjs');
 
-// User find karna by username
+// Find user by username
 function findUserByUsername(username) {
   return new Promise((resolve, reject) => {
     db.get('SELECT * FROM users WHERE username = ?', [username], (err, row) => {
@@ -11,7 +11,7 @@ function findUserByUsername(username) {
   });
 }
 
-// User find karna by ID
+// Find user by ID
 function findUserById(id) {
   return new Promise((resolve, reject) => {
     db.get('SELECT id, username, created_at FROM users WHERE id = ?', [id], (err, row) => {
@@ -21,7 +21,7 @@ function findUserById(id) {
   });
 }
 
-// Naya user create karna
+// Create new user
 async function createUser(username, password) {
   const hashedPassword = await bcrypt.hash(password, 10);
   return new Promise((resolve, reject) => {
@@ -36,7 +36,7 @@ async function createUser(username, password) {
   });
 }
 
-// Password verify karna (login ke waqt)
+// Password verification
 async function verifyPassword(plainPassword, hashedPassword) {
   return await bcrypt.compare(plainPassword, hashedPassword);
 }

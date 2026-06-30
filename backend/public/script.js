@@ -101,7 +101,7 @@ function removeLoading(loadingId) {
     if (loading) loading.remove();
 }
 
-// Escape HTML to prevent XSS
+
 function escapeHtml(text) {
     const div = document.createElement('div');
     div.textContent = text;
@@ -182,7 +182,7 @@ sendBtn.addEventListener('click', sendMessage);
 clearHistoryBtn.addEventListener('click', clearHistory);
 logoutBtn.addEventListener('click', logout);
 
-// Enter key to send (Shift+Enter for new line)
+
 messageInput.addEventListener('keypress', (e) => {
     if (e.key === 'Enter' && !e.shiftKey) {
         e.preventDefault();

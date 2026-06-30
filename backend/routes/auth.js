@@ -3,7 +3,7 @@ const router = express.Router();
 const { findUserByUsername, createUser, verifyPassword } = require('../models/User');
 const { generateToken } = require('../config/auth');
 
-// POST /auth/register - New account banane ke liye
+// POST /auth/register
 router.post('/register', async (req, res) => {
   try {
     const { username, password } = req.body;
@@ -17,13 +17,13 @@ router.post('/register', async (req, res) => {
       return res.status(400).json({ error: 'Password must be at least 4 characters' });
     }
     
-    // Check karo user already exist to nahi karta
+    // Check if user already exists
     const existingUser = await findUserByUsername(username);
     if (existingUser) {
       return res.status(409).json({ error: 'Username already exists' });
     }
     
-    // Naya user create karo
+    // Create new user
     const newUser = await createUser(username, password);
     const token = generateToken(newUser.id, newUser.username);
     
@@ -39,7 +39,7 @@ router.post('/register', async (req, res) => {
   }
 });
 
-// POST /auth/login - Existing user login ke liye
+// POST /auth/login
 router.post('/login', async (req, res) => {
   try {
     const { username, password } = req.body;
@@ -48,19 +48,19 @@ router.post('/login', async (req, res) => {
       return res.status(400).json({ error: 'Username and password required' });
     }
     
-    // User find karo
+    // Find user by username
     const user = await findUserByUsername(username);
     if (!user) {
       return res.status(401).json({ error: 'Invalid username or password' });
     }
     
-    // Password check karo
+    // Password verification
     const isValid = await verifyPassword(password, user.password);
     if (!isValid) {
       return res.status(401).json({ error: 'Invalid username or password' });
     }
     
-    // Token generate karo
+    // Generate token
     const token = generateToken(user.id, user.username);
     
     res.json({

@@ -1,6 +1,6 @@
 const db = require('../config/db');
 
-// Message save karna (specific user ke liye)
+// Message save (for specific user)
 async function saveMessage(userId, role, content) {
   return new Promise((resolve, reject) => {
     db.run(
@@ -14,7 +14,7 @@ async function saveMessage(userId, role, content) {
   });
 }
 
-// Chat history lena (specific user ki)
+// Chat history (for specific user)
 async function getChatHistory(userId, limit = 50) {
   return new Promise((resolve, reject) => {
     db.all(
@@ -28,7 +28,7 @@ async function getChatHistory(userId, limit = 50) {
   });
 }
 
-// History clear karna (specific user ki)
+// History clear (for specific user)
 async function clearHistory(userId) {
   return new Promise((resolve, reject) => {
     db.run('DELETE FROM messages WHERE user_id = ?', [userId], function(err) {

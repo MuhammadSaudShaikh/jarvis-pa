@@ -2,7 +2,7 @@ const jwt = require('jsonwebtoken');
 
 const JWT_SECRET = process.env.JWT_SECRET;
 
-// Token generate karna (login/register ke baad)
+// Token generator
 function generateToken(userId, username) {
   return jwt.sign(
     { id: userId, username: username },
@@ -11,7 +11,7 @@ function generateToken(userId, username) {
   );
 }
 
-// Token verify karna (har protected request ke saath)
+// Token verification
 function verifyToken(token) {
   try {
     const decoded = jwt.verify(token, JWT_SECRET);
